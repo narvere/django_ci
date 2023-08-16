@@ -22,6 +22,8 @@ COPY --chown=yt:yt . .
 
 RUN pip install -r requirements.txt --no-cache-dir
 
+RUN pip install gunicorn
+
 USER yt
 
 CMD ["gunicorn","-b","0.0.0.0:8001", "-w", "2", "--timeout","120", "myproject.wsgi:application"]
