@@ -8,7 +8,7 @@ jobs:
   run_tests:
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@postgres-nginx-branch
+      - uses: actions/checkout@master
       - uses: actions/setup-python@v1
         with:
           python-version: 3.11
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Login in docker
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
-      - uses: actions/checkout@postgres-nginx-branch
+      - uses: actions/checkout@master
       - name: Build image
         run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
       - name: Push image to docker
