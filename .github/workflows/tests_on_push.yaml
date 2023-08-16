@@ -19,3 +19,18 @@ jobs:
         run: pycodestyle ./demopages/*.py
       - name: Tests
         run: python manage.py test
+  build_and_pub:
+    needs: [run_tests]
+    runs-on: [ubuntu-latest]
+    env:
+      LOGIN: ${{ secrets.DOCKER_LOGIN }}
+      NAME: ${{ secrets.DOCKER_NAME }}
+    steps:
+      - name: Login in docker
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - uses: actions/checkout@master
+      - name: Build image
+        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} - f Dockerfile
+      - name: Push image to docker
+        run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
+
