@@ -25,7 +25,7 @@ jobs:
     env:
       LOGIN: ${{ secrets.DOCKER_LOGIN }}
       NAME: ${{ secrets.DOCKER_NAME }}
-      NGINX_EXTERNAL_PORT: ${{ variables.NGINX_EXTERNAL_PORT }}
+      NGINX_EXTERNAL_PORT: ${{ secrets.NGINX_EXTERNAL_PORT }}
     steps:
       - name: Login in docker
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
