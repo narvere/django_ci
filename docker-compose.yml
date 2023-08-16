@@ -9,13 +9,17 @@ services:
 
 
   youtube_project:
-    image: djproject:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: yt_django
     depends_on:
       - yt_postgres
     volumes:
       - ./static_root:/yt/static
       - ./media:/yt/media
+    ports:
+      - "8001:8001"  # Проксируем порт 8001 из контейнера
 
     command: >
       bash -c "python manage.py collectstatic --noinput && python manage.py migrate  && gunicorn -b 0.0.0.0:8000 myproject.wsgi:application"
