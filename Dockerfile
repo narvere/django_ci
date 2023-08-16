@@ -26,4 +26,4 @@ RUN pip install gunicorn
 
 USER yt
 
-CMD ["gunicorn","-b","0.0.0.0:8001", "-w", "2", "--timeout","120", "myproject.wsgi:application"]
+CMD ["gunicorn","-b","0.0.0.0:8001", "-w", "2", "--timeout","120", "django_ci.wsgi:application"]
