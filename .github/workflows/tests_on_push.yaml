@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -8,17 +9,18 @@ jobs:
   run_tests:
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.11
-          architecture: 'x64'
       - name: Install requirements
         run: pip install -r requirements.txt
       - name: Check codestyle
         run: pycodestyle ./demopages/*.py
-      - name: Tests
-        run: python manage.py test
+      - name: Run tests
+        run: |
+          docker-compose run youtube_project python manage.py test
+
   build_and_pub:
     needs: [run_tests]
     runs-on: [ubuntu-latest]
