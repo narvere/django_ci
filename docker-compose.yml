@@ -17,8 +17,7 @@ services:
     volumes:
       - ./static_root:/yt/static
       - ./media:/yt/media
-    env_file:
-      - .env
+
     command: >
       bash -c "python manage.py collectstatic --noinput && python manage.py migrate  && gunicorn -b 0.0.0.0:8000 myproject.wsgi:application"
   nginx:
@@ -33,7 +32,7 @@ services:
     depends_on:
       - youtube_project
     ports:
-      - "80:80"
+      - "${NGINX_EXTERNAL_PORT}:80"
 
 volumes:
   static_volume:
