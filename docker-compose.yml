@@ -6,8 +6,7 @@ services:
     container_name: yt_postgres
     volumes:
       - ~/.pg/pg_data/yt:/var/lib/postgresql/data
-    env_file:
-      - .env
+
 
   youtube_project:
     image: djproject:latest
