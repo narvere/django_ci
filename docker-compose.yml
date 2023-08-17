@@ -1,12 +1,16 @@
 version: "3"
 
+x-common: &common_settings
+  volumes:
+    - ./static_root:/yt/static
+    - ./media:/yt/media
+
 services:
   yt_postgres:
     image: postgres:15.3-alpine
     container_name: yt_postgres
     volumes:
       - ~/.pg/pg_data/yt:/var/lib/postgresql/data
-
 
   youtube_project:
     build:
@@ -15,13 +19,11 @@ services:
     container_name: yt_django
     depends_on:
       - yt_postgres
-    volumes:
-      - ./static_root:/yt/static
-      - ./media:/yt/media
+    <<: *common_settings
     ports:
-      - "8001:8001"  # Проксируем порт 8001 из контейнера
+      - "8001:8001"
     environment:
-      - DJANGO_SETTINGS_MODULE=django_ci.settings
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
 
@@ -31,15 +33,12 @@ services:
       context: ./docker/nginx/
     container_name: yt_nginx
     image: yt_nginx
-    volumes:
-      - ./static_root:/yt/static
-      - ./media:/yt/media
     depends_on:
       - youtube_project
+    <<: *common_settings
     ports:
       - "80:80"
 
 volumes:
   static_volume:
   media_volume:
-

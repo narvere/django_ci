@@ -21,6 +21,7 @@ from demopages import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('2/', views.index2, name='index2'),
     path('admin/', admin.site.urls),
 
 ]
