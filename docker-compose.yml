@@ -21,7 +21,7 @@ services:
     ports:
       - "8001:8001"  # Проксируем порт 8001 из контейнера
     environment:
-      - DJANGO_SETTINGS_MODULE=myproject.settings
+      - DJANGO_SETTINGS_MODULE=django_ci.settings
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
     command: >
