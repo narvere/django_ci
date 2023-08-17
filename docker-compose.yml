@@ -39,8 +39,6 @@ services:
       - youtube_project
     ports:
       - "80:80"
-    environment:
-      - NGINX_EXTERNAL_PORT=${NGINX_EXTERNAL_PORT} # Set the environment variable if needed
 
 volumes:
   static_volume:
