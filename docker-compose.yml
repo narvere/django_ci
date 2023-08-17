@@ -38,7 +38,7 @@ services:
     depends_on:
       - youtube_project
     ports:
-      - "${NGINX_EXTERNAL_PORT}:80"
+      - "80:80"
     environment:
       - NGINX_EXTERNAL_PORT=${NGINX_EXTERNAL_PORT} # Set the environment variable if needed
 
