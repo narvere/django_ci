@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - postgres-nginx-branch
+      - new-branch
 
 jobs:
   run_tests:
